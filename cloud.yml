@@ -1,0 +1,47 @@
+provisioning: cloud
+
+execution:
+- scenario: quick-test
+  concurrency: 
+    cloud: 2
+    ramp-up: 5s
+    hold-for: 5s
+  throughput:
+    cloud: 2
+
+scenarios:
+  quick-test:
+    requests:
+    - http://blazedemo.com
+
+reporting:
+- module: junit-xml
+  filename: report.xml
+  data-source: pass-fail
+- module: final-stats
+  summary: true  # overall samples count and percent of failures
+  percentiles: false  # display average times and percentiles
+  summary-labels: true # provides list of sample labels, status, percentage of completed, avg time and errors
+  failed-labels: false  # provides list of sample labels with failures
+  test-duration: false  # provides test duration
+  dump-xml: dump.xml
+  dump-csv: dump.csv
+- module: blazemeter
+
+
+modules:
+  cloud:
+    account: 1366540
+    workspace: 1409444
+    project: 1669092
+    test: cloud demo
+    report-name: BZT test
+    timeout: 10s  # BlazeMeter API client timeout
+    browser-open: none  # auto-open browser on test start/end/both/none
+    check-interval: 5s  # interval which Taurus uses to query test status from BlazeMeter
+    public-report: false  # make test report public, disabled by default
+    send-report-email: false  # send report email once test is finished, disabled by default
+    request-logging-limit: 10240 # use this to dump more of request/response data into logs, for debugging
+  console:
+    # disable console reporter
+    disable: true
