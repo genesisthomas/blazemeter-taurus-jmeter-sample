@@ -1,9 +1,10 @@
 # Ignore everything
 *
-
+2023.*
 # But not these files...
 !.gitignore
 !quick_test.yml
+!cloud.yml
 
 
 # ...even if they are in subdirectories
